@@ -17,7 +17,7 @@ jobs:
       run: |
         pwd
     - name: Terraform Init
-      uses: hashicorp/terraform-github-actions/@main
+      uses: hashicorp/terraform-github-actions/@master
       with:
           tf_actions_version: 0.12.13
           tf_actions_subcommand: 'init'
