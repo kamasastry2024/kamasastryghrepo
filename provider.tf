@@ -9,7 +9,7 @@ terraform {
     resource_group_name  = "rg-spec-builder-eval"
     storage_account_name = "saspecbuilderdit1"
     container_name       = "sastrycontainer"
-    key                  = "sastrytest.tfstate"
+    key                  = "terraform.tfstate"
     access_key           = "vczA8SWz6uhueVyC++ocBsPzyVkjktBx7ShG8BDTSOlpcXlhRpqFpbX3icMswsbXzRHQxBUfKmGB+ASte+vpfQ=="
   }
 }
