@@ -8,8 +8,8 @@ jobs:
     name: 'terraform'
     runs-on: ubuntu-latest
     env:
-      ARM_SUBSCRIPTION_ID: 'e495d880-46b4-4223-81c2-6753ed66b43a'
-      ARM_TENANT_ID: 'ff355289-721e-4dd7-a663-afec62ab9d54'
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID  }}
     defaults:
       run:
         shell: bash
