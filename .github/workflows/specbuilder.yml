@@ -20,7 +20,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        token: "${{ secrets.GITHUB_TOKEN }}"
+        token: "${{ secrets.TOKEN }}"
     - name: list files in directory
       run: |
        ls -R ./
@@ -31,7 +31,7 @@ jobs:
       run: |
         echo "Sub: ${{ secrets.AZURE_SUBSCRIPTION_ID }}"
         echo "Tenant: ${{ secrets.AZURE_AD_TENANT_ID }}"
-        echo "Key: ${{ secrets.GITHUB_TOKEN }}"
+        echo "Key: ${{ secrets.TOKEN }}"
     - name: Terraform Init
       uses: hashicorp/terraform-github-actions/@master
       with:
