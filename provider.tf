@@ -9,6 +9,7 @@ terraform {
 
 provider "azurerm" {
   features {}
+  use_cli = false
 }
 
 data "azurerm_client_config" "current" {}
