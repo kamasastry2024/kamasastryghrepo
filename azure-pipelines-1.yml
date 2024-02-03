@@ -1,0 +1,49 @@
+trigger:
+  branches:
+    include:
+    - Prodiag_Sastry
+
+pool: 'Default'
+
+steps:
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
+  displayName: 'Install Terraform latest'
+  inputs:
+    terraformVersion: 'latest'
+
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV4@4
+  displayName: 'Initialize terraform before create Resource Group'
+  inputs:
+    command: 'init'
+    workingDirectory: '$(Build.SourcesDirectory)/modules/resource-group'
+    backendType: 'azurerm'
+    ensureBackend: true
+    backendServiceArm: 'Azure subscription 1(b68f1f0c-238e-4808-b51e-c18ee2823409)'
+    backendAzureRmResourceGroupName: 'app-grp'
+    backendAzureRmStorageAccountName: 'storagefuse'
+    backendAzureRmContainerName: 'containerapp'
+    backendAzureRmKey: 'terraform.tfstate'
+
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV4@4
+  displayName: 'Initialize terraform before create App Insights '
+  inputs:
+    command: 'init'
+    workingDirectory: '$(Build.SourcesDirectory)/modules/app-insights'
+    backendType: 'azurerm'
+    ensureBackend: true
+    backendServiceArm: 'Azure subscription 1(b68f1f0c-238e-4808-b51e-c18ee2823409)'
+    backendAzureRmResourceGroupName: 'app-grp'
+    backendAzureRmStorageAccountName: 'storagefuse'
+    backendAzureRmContainerName: 'containerapp'
+    backendAzureRmKey: 'terraform.tfstate'
+
+- task: CopyFiles@2
+  displayName: 'Prepare files for publish'
+  inputs:
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish Pipeline Artifact'
+  inputs:
+    targetPath: '$(build.artifactstagingdirectory)'
+    artifact: Prodiag
