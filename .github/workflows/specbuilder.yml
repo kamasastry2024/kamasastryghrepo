@@ -22,6 +22,10 @@ jobs:
     - name: Current Working Directory
       run: |
         pwd
+    - name: test secrets
+      run: |
+        echo "Sub: ${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+        echo "Tenant: ${{ secrets.AZURE_AD_TENANT_ID }}"
     - name: Terraform Init
       uses: hashicorp/terraform-github-actions/@master
       with:
