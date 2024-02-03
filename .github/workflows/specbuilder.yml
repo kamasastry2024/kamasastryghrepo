@@ -32,7 +32,7 @@ jobs:
         echo "Sub: ${{ secrets.AZURE_SUBSCRIPTION_ID }}"
         echo "Tenant: ${{ secrets.AZURE_AD_TENANT_ID }}"
         echo "Key: ${{ secrets.KEY }}"
-    - name: 'Fmt Check'
+    - name: Fmt Check
         uses: hashicorp/terraform-github-actions@master
         with:
           tf_actions_version: 0.12.13
