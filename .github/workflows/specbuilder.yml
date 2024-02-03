@@ -20,7 +20,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        token: "${{ secrets.KEY }}"
+        token: ${{ secrets.KEY }}
     - name: list files in directory
       run: |
        ls -R ./
@@ -32,9 +32,15 @@ jobs:
         echo "Sub: ${{ secrets.AZURE_SUBSCRIPTION_ID }}"
         echo "Tenant: ${{ secrets.AZURE_AD_TENANT_ID }}"
         echo "Key: ${{ secrets.KEY }}"
+    - name: 'Fmt Check'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.13
+          tf_actions_subcommand: 'fmt'
+          tf_actions_working_dir: '.'
     - name: Terraform Init
       uses: hashicorp/terraform-github-actions/@master
       with:
-          tf_actions_version: 2.26
+          tf_actions_version: 0.12.13
           tf_actions_subcommand: 'init'
           tf_actions_working_dir: '.'
