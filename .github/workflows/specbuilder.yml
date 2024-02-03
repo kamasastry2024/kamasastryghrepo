@@ -3,19 +3,24 @@ on:
   push:
     branches:
       - main
+permissions:
+  id-token: write
+  contents: read
 jobs:
   terraform:
     name: 'terraform'
     runs-on: ubuntu-latest
     env:
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID  }}
+      ARM_SUBSCRIPTION_ID: "${{ secrets.AZURE_SUBSCRIPTION_ID }}"
+      ARM_TENANT_ID: "${{ secrets.AZURE_AD_TENANT_ID  }}"
     defaults:
       run:
         shell: bash
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        token: "${{ secrets.GITHUB_TOKEN }}"
     - name: list files in directory
       run: |
        ls -R ./
@@ -26,6 +31,7 @@ jobs:
       run: |
         echo "Sub: ${{ secrets.AZURE_SUBSCRIPTION_ID }}"
         echo "Tenant: ${{ secrets.AZURE_AD_TENANT_ID }}"
+        echo "Key: ${{ secrets.GITHUB_TOKEN }}"
     - name: Terraform Init
       uses: hashicorp/terraform-github-actions/@master
       with:
